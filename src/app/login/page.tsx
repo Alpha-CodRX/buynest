@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import axios from "axios";
 import api from "@/lib/axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import Footer from "@/components/footer/Footer";
 
 function LoginForm() {
   const router = useRouter();
@@ -94,6 +95,7 @@ function LoginForm() {
   };
 
   return (
+   <>
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
         {/* =========================
@@ -178,6 +180,8 @@ function LoginForm() {
         </p>
       </div>
     </div>
+    <Footer />
+   </>
   );
 }
 
