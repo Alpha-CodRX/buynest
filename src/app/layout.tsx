@@ -28,6 +28,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BuyNest",
   description: "BuyNest E-commerce Website",
+  icons: {
+    icon: "/logo-header.png",
+  },
 };
 
 export default function RootLayout({
