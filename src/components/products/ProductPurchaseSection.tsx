@@ -87,7 +87,7 @@ const handleAddToCart = () => {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
-          disabled={!product.inStock}
+          // disabled={!product.inStock}
           onClick={handleAddToCart}
           className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-blue-600 px-6 py-3 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-50"
         >
@@ -96,7 +96,7 @@ const handleAddToCart = () => {
         </button>
 
         <Link href="/cart"
-          disabled={!product.inStock}
+          // disabled={!product.inStock}
           className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white hover:bg-orange-600 disabled:opacity-50"
         >
           <Zap className="h-5 w-5" />

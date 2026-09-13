@@ -1,4 +1,3 @@
- 
 export interface ProductOption {
   name: string;
   values: string[];
@@ -11,10 +10,12 @@ export interface Product {
   description: string;
   price: number;
 
-  category: string | {
-    _id: string;
-    name: string;
-  };
+  category:
+    | string
+    | {
+        _id: string;
+        name: string;
+      };
 
   image: string[];
 
@@ -29,4 +30,4 @@ export interface Product {
   rating?: number;
 
   createdAt?: string;
-} 
+}

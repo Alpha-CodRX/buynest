@@ -129,7 +129,7 @@ export default function ProductCard({
         <button
           type="button"
           onClick={handleAddToCart}
-          disabled={!product.inStock}
+          // disabled={!product.inStock}
           className={`mt-5 w-full rounded-lg py-2 text-white transition ${
             product.inStock
               ? "cursor-pointer bg-blue-600 hover:bg-blue-700"

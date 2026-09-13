@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import ProductGrid from "./ProductGrid";
@@ -14,7 +14,7 @@ interface Category {
   image?: string;
 }
 
-export default function ProductToolbar() {
+function ProductToolbarContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -321,5 +321,13 @@ export default function ProductToolbar() {
 
       </div>
     </div>
+  );
+}
+
+export default function ProductToolbar() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductToolbarContent />
+    </Suspense>
   );
 }

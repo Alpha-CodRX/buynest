@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import api from "@/lib/axios";
@@ -8,7 +8,7 @@ import { Product } from "@/types/product";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/footer/Footer";
 
-export default function SearchPage() {
+function SearchPageContent() {
 const searchParams = useSearchParams();
 
 const query = searchParams.get("q") || "";
@@ -137,4 +137,13 @@ return (
  
 
 );
+}
+
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
 }

@@ -7,11 +7,7 @@ import ProductCard from "../ProductCard";
 import { Product } from "@/types/product";
 import api from "@/lib/axios";
 
-const categoryNames = [
-  "Mobiles",
-  "Laptops",
-  "Home Entertainment",
-];
+const categoryNames = ["Mobiles", "Laptops", "Home Entertainment"];
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,15 +35,14 @@ export default function FeaturedProducts() {
     <section className="mt-7">
       <div className="mx-auto max-w-7xl px-4">
         {loading ? (
-          <p className="text-center text-gray-500">
-            Loading products...
-          </p>
+          <p className="text-center text-gray-500">Loading products...</p>
         ) : (
           categoryNames.map((categoryName) => {
             const categoryProducts = products
               .filter(
                 (product) =>
-                  product.category?.name === categoryName
+                  typeof product.category === "object" &&
+                  product.category?.name === categoryName,
               )
               .slice(0, 5);
 
@@ -56,9 +51,7 @@ export default function FeaturedProducts() {
                 {/* Heading + View All */}
                 <div className="mb-3 flex items-center justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold">
-                      {categoryName}
-                    </h2>
+                    <h2 className="text-3xl font-bold">{categoryName}</h2>
 
                     <p className="mt-1 text-gray-500">
                       Handpicked products for you
@@ -75,9 +68,7 @@ export default function FeaturedProducts() {
 
                 {/* Products */}
                 {categoryProducts.length === 0 ? (
-                  <p className="text-gray-500">
-                    No products found.
-                  </p>
+                  <p className="text-gray-500">No products found.</p>
                 ) : (
                   <div
                     className="
@@ -91,10 +82,7 @@ export default function FeaturedProducts() {
                     "
                   >
                     {categoryProducts.map((product) => (
-                      <ProductCard
-                        key={product._id}
-                        product={product}
-                      />
+                      <ProductCard key={product._id} product={product} />
                     ))}
                   </div>
                 )}
