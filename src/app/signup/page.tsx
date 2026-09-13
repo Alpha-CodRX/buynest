@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/footer/Footer";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -67,6 +68,7 @@ export default function SignupPage() {
   };
 
   return (
+  <>
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
         <h1 className="mb-2 text-3xl font-bold">
@@ -156,5 +158,7 @@ export default function SignupPage() {
         </p>
       </div>
     </div>
+    <Footer />
+  </>
   );
 }
