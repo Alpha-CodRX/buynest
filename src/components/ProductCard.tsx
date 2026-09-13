@@ -1,4 +1,3 @@
- 
 "use client";
 
 import Image from "next/image";
@@ -8,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import api from "@/lib/axios";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
@@ -58,13 +58,34 @@ export default function ProductCard({
   }, [product.category]);
 
   // Add to cart
-  const handleAddToCart = (
+  const handleAddToCart = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
     event.stopPropagation();
 
-    addToCart(product);
+    // Check login
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first");
+      return;
+    }
+
+    try {
+      await addToCart(product);
+
+      toast.success("Product added to cart");
+    } catch (error) {
+      console.error(
+        "Add to cart error:",
+        error
+      );
+
+      toast.error(
+        "Failed to add product to cart"
+      );
+    }
   };
 
   // Product image
@@ -129,7 +150,7 @@ export default function ProductCard({
         <button
           type="button"
           onClick={handleAddToCart}
-          // disabled={!product.inStock}
+          disabled={!product.inStock}
           className={`mt-5 w-full rounded-lg py-2 text-white transition ${
             product.inStock
               ? "cursor-pointer bg-blue-600 hover:bg-blue-700"
@@ -143,4 +164,4 @@ export default function ProductCard({
       </div>
     </Link>
   );
-} 
+}

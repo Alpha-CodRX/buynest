@@ -41,27 +41,33 @@ const selectedCount =
       [optionName]: value,
     }));
   };
-const handleAddToCart = () => {
+const handleAddToCart = async () => {
   if (
     totalOptions > 0 &&
     selectedCount !== totalOptions
   ) {
-    toast.error(
-      "Please select all options"
-    );
-
+    toast.error("Please select all options");
     return;
   }
 
-  addToCart(
-    product,
-    selectedOptions,
-    quantity
-  );
+  const token = localStorage.getItem("token");
 
-  toast.success(
-    "Product added to cart"
-  );
+  if (!token) {
+    toast.error("Please login first");
+    return;
+  }
+
+  try {
+    await addToCart(
+      product,
+      selectedOptions,
+      quantity
+    );
+
+    toast.success("Product added to cart");
+  } catch (error) {
+    toast.error("Failed to add product to cart");
+  }
 };
 
   return (

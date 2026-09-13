@@ -1,4 +1,3 @@
- 
 "use client";
 
 import { Suspense, useState } from "react";
@@ -55,9 +54,7 @@ function LoginForm() {
       ========================= */
 
       const user =
-        response.data.user ||
-        response.data.data?.user ||
-        response.data.data;
+        response.data.user || response.data.data?.user || response.data.data;
 
       console.log("Logged In User:", user);
 
@@ -66,37 +63,30 @@ function LoginForm() {
       ========================= */
 
       if (user) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify(user)
-        );
+        localStorage.setItem("user", JSON.stringify(user));
       }
+
+      // Tell Navbar that login happened
+      window.dispatchEvent(new Event("auth-change"));
 
       /* =========================
          REDIRECT
       ========================= */
 
-      const redirect =
-        searchParams.get("redirect");
+      const redirect = searchParams.get("redirect");
 
       if (redirect) {
         router.push(redirect);
       } else {
         router.push("/admin");
       }
-
     } catch (error) {
       console.error("Login Error:", error);
 
       if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.message ||
-            "Invalid email or password"
-        );
+        setError(error.response?.data?.message || "Invalid email or password");
       } else {
-        setError(
-          "Something went wrong. Please try again."
-        );
+        setError("Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -105,20 +95,14 @@ function LoginForm() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
-
         {/* =========================
             HEADER
         ========================= */}
 
-        <h1 className="mb-2 text-3xl font-bold">
-          Welcome Back
-        </h1>
+        <h1 className="mb-2 text-3xl font-bold">Welcome Back</h1>
 
-        <p className="mb-6 text-gray-500">
-          Login to your BuyNest account
-        </p>
+        <p className="mb-6 text-gray-500">Login to your BuyNest account</p>
 
         {/* =========================
             ERROR
@@ -134,24 +118,16 @@ function LoginForm() {
             LOGIN FORM
         ========================= */}
 
-        <form
-          onSubmit={handleLogin}
-          className="space-y-4"
-        >
-
+        <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
 
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              Email
-            </label>
+            <label className="mb-1 block text-sm font-medium">Email</label>
 
             <input
               type="email"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
               autoComplete="email"
@@ -162,16 +138,12 @@ function LoginForm() {
           {/* Password */}
 
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              Password
-            </label>
+            <label className="mb-1 block text-sm font-medium">Password</label>
 
             <input
               type="password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
               autoComplete="current-password"
@@ -186,11 +158,8 @@ function LoginForm() {
             disabled={loading}
             className="w-full rounded-md bg-black px-4 py-2 font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading
-              ? "Logging in..."
-              : "Login"}
+            {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         {/* =========================
@@ -198,26 +167,19 @@ function LoginForm() {
         ========================= */}
 
         <p className="mt-6 text-center text-sm text-gray-500">
-
           Dont have an account?{" "}
-
           <button
             type="button"
-            onClick={() =>
-              router.push("/signup")
-            }
+            onClick={() => router.push("/signup")}
             className="font-medium text-black hover:underline"
           >
             Sign Up
           </button>
-
         </p>
-
       </div>
     </div>
   );
-  
-} 
+}
 
 export default function LoginPage() {
   return (

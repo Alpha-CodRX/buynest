@@ -97,9 +97,11 @@ export default function Navbar() {
 
     // Listen for login/logout changes
     window.addEventListener("storage", checkUser);
+    window.addEventListener("auth-change", checkUser);
 
     return () => {
       window.removeEventListener("storage", checkUser);
+      window.removeEventListener("auth-change", checkUser);
     };
   }, []);
 
@@ -145,6 +147,8 @@ export default function Navbar() {
     localStorage.removeItem("user");
 
     setUser(null);
+
+    window.dispatchEvent(new Event("auth-change"));
 
     setMobileMenuOpen(false);
 
@@ -220,7 +224,7 @@ export default function Navbar() {
                 width={100}
                 height={100}
                 className="object-contain"
-              /> 
+              />
             </Link>
 
             {/* Desktop Navigation */}
