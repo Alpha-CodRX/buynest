@@ -1,6 +1,6 @@
 import { PromoBanner } from "@/types/promoBanner";
 
-export const promoBanner: PromoBanner = [
+export const promoBanner: PromoBanner[] = [
   {
     id: 1,
     title: "Mega Electronics Sale",

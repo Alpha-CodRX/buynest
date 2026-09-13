@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
@@ -23,14 +24,20 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      // const response = await axios.post(
+      //   "http://localhost:5000/api/v1/auth/register",
+      //   {
+      //     name,
+      //     email,
+      //     password,
+      //   }
+      // );
+
+      const response = await api.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
 
       console.log("Signup Response:", response.data);
 

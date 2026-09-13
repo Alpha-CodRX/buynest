@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import api from "@/lib/axios";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
@@ -22,13 +23,18 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      // const response = await axios.post(
+      //   "http://localhost:5000/api/v1/auth/login",
+      //   {
+      //     email,
+      //     password,
+      //   }
+      // );
+
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
 
       console.log("Login Response:", response.data);
 
